@@ -18,11 +18,6 @@ const userSchema = new Schema(
         //??? or to use validate ???
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address'],
     },
-    github: {
-      type: String,
-      required: true,
-      max_length: 50,
-    },
     // ??? Array of _id values referencing the Thought model ???
     thoughts: [
       {
@@ -50,8 +45,8 @@ userSchema
   .virtual('friendCount')
   // Getter
   .get(function () {
-    // ??? string or number this.friends.length ???
-    return `${this.friends.length}`;
+    // ??? string `${this.friends.length}` or number this.friends.length ???
+    return this.friends.length;
   });
 
 const User = model('user', userSchema);
