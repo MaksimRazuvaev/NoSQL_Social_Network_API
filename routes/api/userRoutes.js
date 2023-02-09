@@ -10,13 +10,12 @@ const {
 } = require('../../controllers/studentController');
 
 // GET all users / POST an user / PUT(update) an user: /api/users
-router.route('/').get(getUsers).post(createUser).put(updateUser);
+router.route('/').get(getUsers).post(createUser);
 
 
 // POST create a new user: /api/users
 // router.route('/').post(createUser);
-// PUT update an user: /api/users
-//router.route('/').get(getUsers).put(updateUser);
+
 
 //?????????? Instead of: ???????????????????
 //router.get('/', getUsers);
@@ -24,11 +23,14 @@ router.route('/').get(getUsers).post(createUser).put(updateUser);
 //router.delete('/', updateUser);
 
 
-// GET a single user: /api/users/:userId
-router.route('/:userId').get(getSingleUser).delete(deleteUser);
+// GET PUT DELETE a single user: /api/users/:userId
+// !!!!!!!!!!!!!!! don't forget BONUS: Remove a user's associated thoughts when deleted.!!!!!!!!!!!!!!!!!!!!
+router.route('/:userId').get(getSingleUser).put(updateUser).delete(deleteUser);
 // ???????????????????????????????
 // DELETE an user: /api/users/:userId
 //router.route('/:userId').delete(deleteUser);
+// PUT update an user: /api/users
+//router.route('/').get(getUsers).put(updateUser);
 
 // POST to add a new friend to a user's friend list or to DELETE /api/users/:userId/friends/:friendId
 router.route('/:userId/friends/:friendId').post(addFriend).delete(removeFriend);
