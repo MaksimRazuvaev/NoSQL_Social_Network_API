@@ -11,10 +11,16 @@ const thoughtSchema = new Schema(
         // ???? Must be between 1 and 280 characters ????
         minLength: 1,
         maxLength: 280,
+        validate: [
+            (value) => value.length >= 1 && value.length <= 280,
+            'Thought text must be between 1 and 280 characters'
+        ]
     },
     createdAt: {
         type: Date,
         default: Date.now,
+        // ???? instead of line 42 ?????
+        get: createdAt => createdAt.toLocaleString(),
     },
     // ???? The user that created this thought ????
     username: {
