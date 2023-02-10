@@ -15,17 +15,17 @@ const userSchema = new Schema(
         type: String,
         unique: true,
         required: true,
-        //??? or to use validate ???
+        // to validate email user input
         match: [/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/, 'Please fill a valid email address'],
     },
-    // ??? Array of _id values referencing the Thought model ???
+    // Array of _id values referencing the Thought model
     thoughts: [
       {
         type: Schema.Types.ObjectId,
         ref: 'Thought',
       },
     ],
-    // ??? Array of _id values referencing the User model (self-reference) ???
+    // Array of _id values referencing the User model (self-reference)
     friends: [
       {
         type: Schema.Types.ObjectId,
@@ -40,13 +40,13 @@ const userSchema = new Schema(
   }
 );
 
-// ??? virtual called friendCount that retrieves the length of the user's friends array field on query ???
+// virtual called friendCount that retrieves the length of the user's friends array field on query
 userSchema
   .virtual('friendCount')
   // Getter
   .get(function () {
   return this.friends.length;
-  });
+});
 
 const User = model('user', userSchema);
 

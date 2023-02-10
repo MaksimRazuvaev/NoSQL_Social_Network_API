@@ -32,7 +32,7 @@ const reactionSchema = new Schema(
         type: Date,
         default: Date.now,
         //???? Use a getter method to format the timestamp on query ???? is it wtat asked ????
-        get: createdAt => createdAt.toLocaleString()
+        //get: createdAt => createdAt.toLocaleString()
     },
   },
   {

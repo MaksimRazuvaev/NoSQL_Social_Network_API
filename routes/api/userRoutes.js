@@ -26,6 +26,8 @@ router.route('/').get(getUsers).post(createUser);
 // GET PUT DELETE a single user: /api/users/:userId
 // !!!!!!!!!!!!!!! don't forget BONUS: Remove a user's associated thoughts when deleted.!!!!!!!!!!!!!!!!!!!!
 router.route('/:userId').get(getSingleUser).put(updateUser).delete(deleteUser);
+
+
 // ???????????????????????????????
 // DELETE an user: /api/users/:userId
 //router.route('/:userId').delete(deleteUser);

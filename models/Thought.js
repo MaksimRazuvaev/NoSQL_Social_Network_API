@@ -8,21 +8,22 @@ const thoughtSchema = new Schema(
     thoughtText: {
         type: String,
         required: true,
-        // ???? Must be between 1 and 280 characters ????
+        // Must be between 1 and 280 characters
         minLength: 1,
         maxLength: 280,
-        validate: [
+        /*validate: [
             (value) => value.length >= 1 && value.length <= 280,
             'Thought text must be between 1 and 280 characters'
-        ]
+        ]*/
     },
     createdAt: {
         type: Date,
         default: Date.now,
-        // ???? instead of line 42 ?????
-        get: createdAt => createdAt.toLocaleString(),
+        // ???? instead of line 42 ????? to test it out to make sure it's working
+        // get: createdAt => createdAt.toLocaleString(),
     },
     // ???? The user that created this thought ????
+    // Session storage to get current user posted the thought ?????
     username: {
         type: String,
         required: true,
@@ -50,7 +51,6 @@ thoughtSchema
     .virtual('reactionCount')
     // Getter
     .get(function () {
-    // ??? string `${this.friends.length}` or number this.friends.length ???
     return this.reactions.length;
 });
 
