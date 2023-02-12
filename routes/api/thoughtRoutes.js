@@ -16,7 +16,7 @@ router.route('/').get(getThought).post(createThought);
 
 // GET PUT DELETE a single Thought: 
 // /api/users/:userId
-router.route('/:userId').get(getSingleThought).put(updateThought).delete(deleteThought);
+router.route('/:thoughtId').get(getSingleThought).put(updateThought).delete(deleteThought);
 
 // POST DELETE new reaction stored in a single thought's reactions array field
 // /api/thoughts/:thoughtId/reactions
