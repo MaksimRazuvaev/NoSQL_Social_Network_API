@@ -48,7 +48,7 @@ module.exports = {
       .then(() => res.json({ message: 'User deleted with THoughts and Friends!' }))
       .catch((err) => res.status(500).json(err));
   },
-  // Update a course
+  // Update a user
     // req.body example
   /*{
     "username" : "user name",
@@ -72,45 +72,32 @@ module.exports = {
 
   //router.route('/:userId/friends/:friendId').post(addFriend)
   addFriend(req, res)  {
-    Thought.findOneAndUpdate(
-      { _id: req.params.thoughtId },
-      { $addToSet: {reactions : req.body } },
+    User.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $addToSet: {friends : req.params.friendId } },
       { runValidators: true, new: true }
     )
-      .then(thought => {
-        if (!thought) {
-          return res.status(404).json({ error: 'Thought not found' });
-        }
-        res.json(thought)
-        })
-    .catch(error => res.status(500).json({ error: 'Error finding thought' }));
-  },
-
-  removeFriend(req, res)  {
-    User.findOne({ _id: req.params.userId })
       .then(user => {
         if (!user) {
           return res.status(404).json({ error: 'User not found' });
         }
-  
-        User.findOne({ _id: req.params.friendId })
-          .then(friend => {
-            if (!friend) {
-              return res.status(404).json({ error: 'Friend not found' });
-            }
-  
-            // Remove the friend from the user's friends list
-            user.friends = user.friends.filter(id => !id.equals(friend._id));
-  
-            user
-              .save()
-              .then(user => res.json({ success: true, friends: user.friends }))
-              .catch(error =>
-                res.status(500).json({ error: 'Error adding friend' })
-              );
-          })
-          .catch(error => res.status(500).json({ error: 'Error finding friend' }));
-      })
-      .catch(error => res.status(500).json({ error: 'Error finding user' }));
+        res.json(user)
+        })
+    .catch(error => res.status(500).json({ error: 'Error finding user' }));
+  },
+
+  removeFriend(req, res)  {
+    User.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $pull: {friends : req.params.friendId } },
+      { runValidators: true, new: true }
+    )
+      .then(user => {
+        if (!user) {
+          return res.status(404).json({ error: 'User not found' });
+        }
+        res.json(user)
+        })
+    .catch(error => res.status(500).json({ error: 'Error finding user' }));
   },
 };
