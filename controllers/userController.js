@@ -72,34 +72,18 @@ module.exports = {
 
   //router.route('/:userId/friends/:friendId').post(addFriend)
   addFriend(req, res)  {
-    User.findOne({ _id: req.params.userId })
-      .then(user => {
-        if (!user) {
-          return res.status(404).json({ error: 'User not found' });
+    Thought.findOneAndUpdate(
+      { _id: req.params.thoughtId },
+      { $addToSet: {reactions : req.body } },
+      { runValidators: true, new: true }
+    )
+      .then(thought => {
+        if (!thought) {
+          return res.status(404).json({ error: 'Thought not found' });
         }
-  
-        User.findOne({ _id: req.params.friendId })
-          .then(friend => {
-            if (!friend) {
-              return res.status(404).json({ error: 'Friend not found' });
-            }
-  
-            // Check if the friend is already added
-            if (user.friends.includes(friend._id)) {
-              return res.status(400).json({ error: 'Friend already added' });
-            }
-  
-            user.friends.push(friend._id);
-            user
-              .save()
-              .then(user => res.json({ success: true, friends: user.friends }))
-              .catch(error =>
-                res.status(500).json({ error: 'Error adding friend' })
-              );
-          })
-          .catch(error => res.status(500).json({ error: 'Error finding friend' }));
-      })
-      .catch(error => res.status(500).json({ error: 'Error finding user' }));
+        res.json(thought)
+        })
+    .catch(error => res.status(500).json({ error: 'Error finding thought' }));
   },
 
   removeFriend(req, res)  {

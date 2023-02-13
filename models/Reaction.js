@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 const userSchema = require('./User');
 const thoughtSchema = require('./Thought');
 
@@ -9,7 +9,7 @@ const reactionSchema = new Schema(
         //Use Mongoose's ObjectId data type
         type: Schema.Types.ObjectId,
         //Default value is set to a new ObjectId
-        default: new Types.ObjectId()
+        default: new Types.ObjectId(),
     },
     reactionBody: {
         type: String,
@@ -51,6 +51,6 @@ reactionSchema
 });
 
 
-const Reaction = model('reaction', reactionSchema);
+//const Reaction = model('reaction', reactionSchema);
 
-module.exports = Reaction;
+module.exports = reactionSchema;

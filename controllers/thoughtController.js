@@ -1,11 +1,5 @@
+const { restart } = require('nodemon');
 const { User, Thought } = require('../models');
-
-
-
-  addReaction,
-  removeReaction,
-
-
 
 module.exports = {
 
@@ -99,44 +93,34 @@ updateThought(req, res) {
   //add reaction
   //router.route('/:thoughtId/reactions').post(addReaction).delete(removeReaction);
   addReaction(req, res)  {
-    Thought.findOne({ _id: req.params.thoughtId })
+    Thought.findOneAndUpdate(
+      { _id: req.params.thoughtId },
+      { $addToSet: {reactions : req.body } },
+      { runValidators: true, new: true }
+    )
       .then(thought => {
         if (!thought) {
           return res.status(404).json({ error: 'Thought not found' });
         }
-  
-        const reaction = new Reaction({
-            reactionText: req.body.reactionText,
-            username: req.body.username
-          });
-    
-          thought.reactions.push(reaction);
-          
-          thought
-            .save()
-            .then(thought => res.json({ success: true, thought: thought }))
-            .catch(error => res.status(500).json({ error: 'Error creating reaction' }));
+        res.json(thought)
         })
         .catch(error => res.status(500).json({ error: 'Error finding thought' }));
   },
 
     //remove reaction
   //router.route('/:thoughtId/reactions').post(addReaction).delete(removeReaction);
-  removeReaction(req, res)  {
-    Thought.findOne({ _id: req.params.thoughtId })
+  removeReaction(req, res) {
+    Thought.findOneAndUpdate(
+      { _id: req.params.thoughtId },
+      { $pull: { reactions: { reactionId: req.params.reactionId } } },
+      { runValidators: true, new: true }
+    )
       .then(thought => {
         if (!thought) {
-          return res.status(404).json({ error: 'Thought not found' });
+        return res.status(404).json({ error: 'Thought not found' });
         }
-  
-      // Filter out the reaction to be removed
-      thought.reactions = thought.reactions.filter(reaction => !reaction._id.equals(req.params.reactionId));
-  
-      thought
-        .save()
-        .then(thought => res.json({ success: true, reactions: thought.reactions }))
-        .catch(error => res.status(500).json({ error: 'Error removing reaction' }));
-    })
+        res.json(thought);
+      })
     .catch(error => res.status(500).json({ error: 'Error finding thought' }));
   },
 };
