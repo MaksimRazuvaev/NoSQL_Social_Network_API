@@ -40,10 +40,11 @@ MIT License according to the LICENSE file in the repo.
 - https://stackoverflow.com/questions/18022365/mongoose-validate-email-syntax
 - https://mongoosejs.com/docs/validation.html
 - https://stackoverflow.com/questions/22244421/how-to-create-mongoose-schema-with-array-of-object-ids
+- https://stackoverflow.com/questions/67866775/mongoose-how-to-schedule-the-update-of-access-token-in-our-database-using
 - https://mongoosejs.com/docs/schematypes.html#string-validators
 - https://stackoverflow.com/questions/22405975/how-to-validate-string-length-with-mongoose
 - https://stackoverflow.com/questions/36550263/how-create-a-date-field-with-default-value-as-the-current-timestamp-in-mongodb
-- 
-- 
-- 
-
+- https://mongoosejs.com/docs/subdocs.html#finding-a-subdocument
+- https://www.geeksforgeeks.org/node-js-process-cwd-method/
+- https://devconnected.com/how-to-remove-files-from-git-commit/
+- https://www.mongodb.com/docs/manual/reference/operator/update/pull/

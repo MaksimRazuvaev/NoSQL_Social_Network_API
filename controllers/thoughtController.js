@@ -35,19 +35,20 @@ module.exports = {
 }*/
 createThought(req, res) {
     Thought.create(req.body)
-      .then(({ _id }) => {
-        return User.findOneAndUpdate(
+      .then( ( thought ) => {
+        User.findOneAndUpdate(
             { _id: req.body.userId },
-            { $push: { thoughts: _id } },
+            { $push: { thoughts: thought._id } },
             { new: true }
-        );
-      })
-      .then((thought) => res.json(thought))
+        )
+      // })
+      .then(() => res.json(thought))
       .catch((err) => {
         console.log(err);
         return res.status(500).json(err);
       });
-  },
+    })},
+  // },
 
   // Delete a thought
   //router.route('/:thoughtId').get(getSingleThought).put(updateThought).delete(deleteThought);
@@ -115,11 +116,13 @@ updateThought(req, res) {
   },
 
     //remove reaction
-  //router.route('/:thoughtId/reactions').post(addReaction).delete(removeReaction);
+  //router.route('/:thoughtId/reactions/').delete(removeReaction);
   removeReaction(req, res) {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
-      { $pull: { reactions: { reactionId: req.params.reactionId } } },
+      //for this one route router.route('/:thoughtId/reactions/:reactionId').delete(removeReaction);
+      // { $pull: { reactions: { reactionId: req.params.reactionId } } },
+      { $pull: { reactions: { reactionId: req.body.reactionId } } },
       { runValidators: true, new: true }
     )
       .then(thought => {
