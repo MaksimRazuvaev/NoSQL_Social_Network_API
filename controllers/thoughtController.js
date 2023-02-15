@@ -106,14 +106,39 @@ updateThought(req, res) {
       { $addToSet: {reactions : req.body } },
       { runValidators: true, new: true }
     )
+  
       .then(thought => {
         if (!thought) {
           return res.status(404).json({ error: 'Thought not found' });
         }
         res.json(thought)
         })
-        .catch(error => res.status(500).json({ error: 'Error finding thought' }));
+
+        /*.then((thought) =>
+        !thought
+          ? res.status(404).json({ message: 'No thought with this id!' })
+          : res.json(thought)
+      )*/
+      .catch(error => res.status(500).json({ error: 'Error finding thought' }));
   },
+
+  /*async addReaction(req, res) {
+    try {
+      await Thought.findOneAndUpdate(
+        { _id: req.params.thoughtId },
+        { $addToSet: { reactions: req.body } },
+        { runValidators: true, new: true }
+      );
+  
+      if (!thought) {
+        return res.status(404).json({ error: 'Thought not found' });
+      }
+  
+      res.json(thought);
+    } catch (error) {
+      res.status(500).json({ error: 'Error finding thought' });
+    }
+  },*/
 
     //remove reaction
   //router.route('/:thoughtId/reactions/').delete(removeReaction);
