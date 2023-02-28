@@ -19,6 +19,14 @@ THEN I am able to successfully create and delete reactions to thoughts and add a
 
 User can join community to share thoughts and leave reaction
 
+## Technologies
+
+Express
+MongoDB
+Mongoose ODM
+JavaScript date library
+Insomnia
+
 ## Link to demonstaration video
 
 https://app.castify.com/view/dbcc0527-32dd-445d-91d6-ae7f7bb732b4 
