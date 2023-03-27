@@ -1,3 +1,6 @@
+A social media plathform using an API for my social network that uses a NoSQL database
+so, my website can handle large amounts of unstructured data
+
 # NoSQL_Social_Network_API
 
 A social media plathform using an API for my social network that uses a NoSQL database
@@ -21,11 +24,11 @@ User can join community to share thoughts and leave reaction
 
 ## Technologies
 
-Express
-MongoDB
-Mongoose ODM
-JavaScript date library
-Insomnia
+- Express
+- MongoDB
+- Mongoose ODM
+- JavaScript date library
+- Insomnia
 
 ## Link to demonstaration video
 
